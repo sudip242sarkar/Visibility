@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f5f5f5; }
+        .container { width: 80%; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; }
+        h1 { font-size: 24px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Submitted Details</h1>
+    
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Topic Name</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody id="result"></tbody>
+    </table>
+</div>
+
+<script>
+    async function fetchData() {
+        const response = await fetch('/submissions');
+        const submissions = await response.json();
+        displaySubmissions(submissions);
+    }
+
+    function displaySubmissions(submissions) {
+        const resultTableBody = document.getElementById("result");
+        resultTableBody.innerHTML = "";
+
+        submissions.forEach(submission => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${submission.name}</td>
+                <td>${submission.topic}</td>
+                <td>${submission.date}</td>
+                <td>${submission.time}</td>
+            `;
+            resultTableBody.appendChild(row);
+        });
+    }
+
+    // Load data when the page loads
+    window.onload = fetchData;
+</script>
+
+</body>
+</html>

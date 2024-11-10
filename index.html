@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnitin Login Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f5f5f5; }
+        .container { width: 80%; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-align: center; }
+        h1 { font-size: 24px; margin-bottom: 20px; }
+        input { width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 10px; width: 100%; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .blue-box { margin-top: 20px; padding: 15px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .blue-box:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Turnitin Login Details</h1>
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter Your Name">
+    
+    <label for="topic">Topic Name:</label>
+    <input type="text" id="topic" placeholder="Enter Topic Name">
+    
+    <label for="date">Date:</label>
+    <input type="date" id="date">
+    
+    <label for="time">Time:</label>
+    <input type="time" id="time">
+    
+    <button onclick="storeAndDisplayDetails()">Submit</button>
+    
+    <!-- Link to the results page -->
+    <a href="results.html" class="blue-box">Show Results</a>
+</div>
+
+<script>
+    async function storeAndDisplayDetails() {
+        const name = document.getElementById("name").value;
+        const topic = document.getElementById("topic").value;
+        const date = document.getElementById("date").value;
+        const time = document.getElementById("time").value;
+
+        const submission = { name, topic, date, time };
+
+        // Send data to server
+        await fetch('/submissions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(submission)
+        });
+
+        alert("Data submitted successfully!");
+    }
+</script>
+
+</body>
+</html>
